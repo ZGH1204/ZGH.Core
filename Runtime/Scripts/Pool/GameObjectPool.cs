@@ -1,5 +1,4 @@
-﻿using Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ namespace ZGH.Core.Pool
         private void InitPool(string _id, int initCount, int maxSize)
         {
             id = _id;
-            prefabLoadHandler.Load(_id);
+            m_prefab = prefabLoadHandler.Load(_id);
 
             for (var i = 0; i < initCount; ++i) {
                 var go = m_OnCreate();
@@ -51,10 +50,11 @@ namespace ZGH.Core.Pool
 
         protected override GameObjectPooled m_OnCreate()
         {
-            var _go = GameObject.Instantiate(m_prefab, Vector3.zero, Quaternion.identity, GameObjectPoolMgr.Instance.transform);
-            var go = _go.AddComponent<GameObjectPooled>();
-            go.transform.SetVisible(false);
-            return go;
+            var parent = GameObjectPoolMgr.Instance.transform;
+            var go = GameObject.Instantiate(m_prefab, Vector3.zero, Quaternion.identity, parent);
+            var pooled = go.AddComponent<GameObjectPooled>();
+            pooled.transform.SetVisible(false);
+            return pooled;
         }
 
         protected override void m_OnRelease(GameObjectPooled go)

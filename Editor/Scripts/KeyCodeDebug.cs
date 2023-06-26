@@ -1,12 +1,12 @@
 using UnityEngine;
+using ZGH.Core;
 
-public class KeyCodeDebug : MonoBehaviour
+public class KeyCodeTimeScale : MonoBehaviour
 {
     [RuntimeInitializeOnLoadMethod]
-    private static void OnInit()
+    private static void RuntimeInit()
     {
-        var go = GameObject.Find("DEBUG") ?? new GameObject("DEBUG", typeof(KeyCodeDebug));
-        DontDestroyOnLoad(go);
+        new GameObject("Editor-KeyCodeTimeScale", typeof(KeyCodeTimeScale)).DontDestroy();
     }
 
     private void Update()
@@ -22,14 +22,6 @@ public class KeyCodeDebug : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.DownArrow)) {
             Time.timeScale = 1f;
-        }
-        if (Input.GetKeyUp(KeyCode.Space)) {
-        }
-        if (Input.GetKeyUp(KeyCode.Q)) {
-        }
-        if (Input.GetKeyUp(KeyCode.S)) {
-        }
-        if (Input.GetKeyUp(KeyCode.D)) {
         }
     }
 }

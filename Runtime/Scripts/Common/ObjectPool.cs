@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core
+namespace ZGH.Core
 {
     public class ObjectPool<T> : IDisposable where T : class
     {

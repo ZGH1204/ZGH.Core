@@ -36,26 +36,46 @@ namespace ZGH.Core
 
         public static void AddClickEvent(this Transform t, Action<Vector2> cb)
         {
-            t.GetOrAddComponent<Graphic>();
+            if (!t.TryGetComponent<Graphic>(out var _)) {
+                t.gameObject.AddComponent<NoDrawingRayCast>();
+            }
             t.GetOrAddComponent<PointerClickHandler>().onClick = cb;
-        }
-
-        public static void AddDownEvent(this Transform t, Action<Vector2> cb)
-        {
-            t.GetOrAddComponent<Graphic>();
-            t.GetOrAddComponent<PointerClickHandler>().onDown = cb;
-        }
-
-        public static void AddUpEvent(this Transform t, Action<Vector2> cb)
-        {
-            t.GetOrAddComponent<Graphic>();
-            t.GetOrAddComponent<PointerClickHandler>().onUp = cb;
         }
 
         public static void RemoveClickEvent(this Transform t)
         {
             if (t.TryGetComponent<PointerClickHandler>(out var comp)) {
                 comp.onClick = null;
+            }
+        }
+
+        public static void AddDownEvent(this Transform t, Action<Vector2> cb)
+        {
+            if (!t.TryGetComponent<Graphic>(out var _)) {
+                t.gameObject.AddComponent<NoDrawingRayCast>();
+            }
+            t.GetOrAddComponent<PointerClickHandler>().onDown = cb;
+        }
+
+        public static void RemoveDownEvent(this Transform t)
+        {
+            if (t.TryGetComponent<PointerClickHandler>(out var comp)) {
+                comp.onDown = null;
+            }
+        }
+
+        public static void AddUpEvent(this Transform t, Action<Vector2> cb)
+        {
+            if (!t.TryGetComponent<Graphic>(out var _)) {
+                t.gameObject.AddComponent<NoDrawingRayCast>();
+            }
+            t.GetOrAddComponent<PointerClickHandler>().onUp = cb;
+        }
+
+        public static void RemoveUpEvent(this Transform t)
+        {
+            if (t.TryGetComponent<PointerClickHandler>(out var comp)) {
+                comp.onUp = null;
             }
         }
     }

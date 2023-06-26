@@ -2,7 +2,7 @@
 
 namespace ZGH.Core
 {
-    public partial class Utils
+    public static partial class Utils
     {
         public static string ToHourMinSec(int time)
         {

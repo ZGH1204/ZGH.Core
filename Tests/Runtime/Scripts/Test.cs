@@ -10,7 +10,12 @@ public class Test : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void TestPool()
     {
+        //GameObjectPoolMgr m_PoolManager = GameObjectPoolMgr.Instance;
+        //GameObjectPoolGroup.groupConfigHandler = new PoolGroupConfigHandler();
+        //GameObjectPool.prefabLoadHandler = new PoolPrefabLoadHandler();
+
+        //  GameObjectPoolMgr.Instance.OnUpdate();
     }
 }

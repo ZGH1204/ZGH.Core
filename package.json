@@ -17,6 +17,5 @@
   "license": "MIT",
   "type": "library",
   "dependencies": {
-    "com.cysharp.unitask": "2.3.3"
   }
 }

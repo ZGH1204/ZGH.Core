@@ -68,7 +68,7 @@ namespace ZGH.Core
 
         public void SetInterval(int id, float interval)
         {
-            if (id < 0) {
+            if (id <= 0) {
                 Log.E("id <= 0 ???");
                 return;
             }

@@ -1,19 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ZGH.Core
 {
     using ListDelegatePool = UnityEngine.Pool.ListPool<Delegate>;
 
-    public class EventManager : Singleton<EventManager>
+    public class EventManager : SingletonUpdater<EventManager>
     {
         public bool isSafeCheck = true;
 
-        private readonly Dictionary<int, List<Delegate>> m_EventDic;
+        private Dictionary<int, List<Delegate>> m_EventDic;
+        private float m_NextPerSecond = 0f;
+        private float m_NextFifthSecond = 0f;
 
-        public EventManager()
+        public EventManager() : base()
         {
             m_EventDic = new Dictionary<int, List<Delegate>>(128);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            Fire((int)CoreEvent.MonoUpdate);
+
+            if (m_NextPerSecond <= Time.time) {
+                m_NextPerSecond = Time.time + 1f;
+                Fire((int)CoreEvent.PerSecondUpdate);
+            }
+            if (m_NextFifthSecond <= Time.time) {
+                m_NextFifthSecond = Time.time + 1f / 5;
+                Fire((int)CoreEvent.FifthSecondUpdate);
+            }
+        }
+
+        public override void FixUpdate()
+        {
+            base.FixUpdate();
+            Fire((int)CoreEvent.MonoFixUpdate);
         }
 
         #region Add
@@ -23,8 +48,7 @@ namespace ZGH.Core
             if (m_EventDic.TryGetValue(id, out var list)) {
                 if (list.IndexOf(cb) < 0)
                     list.Add(cb);
-            }
-            else {
+            } else {
                 var l = ListDelegatePool.Get();
                 l.Add(cb);
                 m_EventDic.Add(id, l);

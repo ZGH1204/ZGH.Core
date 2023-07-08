@@ -36,14 +36,25 @@ namespace ZGH.Core
 
         public static void AddClickEvent(this Transform t, Action<Vector2> cb)
         {
+            if (t.TryGetComponent<Button>(out var b)) {
+                b.onClick.AddListener(()=> { cb?.Invoke(Vector2.zero); });
+                return;
+            }
+
             if (!t.TryGetComponent<Graphic>(out var _)) {
                 t.gameObject.AddComponent<NoDrawingRayCast>();
             }
+
             t.GetOrAddComponent<PointerClickHandler>().onClick = cb;
         }
 
         public static void RemoveClickEvent(this Transform t)
         {
+            if (t.TryGetComponent<Button>(out var b)) {
+                b.onClick.RemoveAllListeners();
+                return;
+            }
+
             if (t.TryGetComponent<PointerClickHandler>(out var comp)) {
                 comp.onClick = null;
             }

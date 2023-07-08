@@ -152,7 +152,6 @@ namespace DD
             }
 
             if (isSplit) {
-                centerColor.a = 1.0f;
                 if (colorMode == GradientMode.HorizontalGradient) {
                     HorizontalLayout(vh);
                 } else if (colorMode == GradientMode.VerticalGradient) {

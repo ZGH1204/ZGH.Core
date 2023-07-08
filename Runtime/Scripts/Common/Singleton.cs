@@ -1,7 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ZGH.Core
 {
+    public class SingletonUpdater<T> : AUpdater, IDisposable where T : AUpdater, new()
+    {
+        private static T m_Instance;
+
+        public static T Instance {
+            get {
+                if (null == m_Instance) {
+                    m_Instance = new T();
+                    if (null == m_Instance) {
+                        Log.E("Error Create Singleton ! ", m_Instance.GetType());
+                    }
+                }
+                return m_Instance;
+            }
+            set { m_Instance = value; }
+        }
+
+        public SingletonUpdater() : base()
+        {
+        }
+
+        public virtual void Dispose()
+        {
+            UpdaterMgr.Unregister(m_Instance);
+            m_Instance = null;
+        }
+    }
+
     public class Singleton<T> where T : class, new()
     {
         private static T m_Instance;

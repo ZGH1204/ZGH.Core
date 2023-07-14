@@ -48,7 +48,7 @@ namespace ZGH.Core
             set { m_Instance = value; }
         }
 
-        protected virtual void Init()
+        public virtual void Init()
         {
         }
 

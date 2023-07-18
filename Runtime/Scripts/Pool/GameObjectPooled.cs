@@ -40,7 +40,7 @@ namespace ZGH.Core.Pool
 
         public void OnRelease()
         {
-            Log.I($"释放 GameObject ：{gameObject.name}");
+            // Log.I($"释放 GameObject ：{gameObject.name}");
             DeInit();
         }
 

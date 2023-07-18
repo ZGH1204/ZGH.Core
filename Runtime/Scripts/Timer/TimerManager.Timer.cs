@@ -26,27 +26,22 @@ namespace ZGH.Core
                 return interval > 0f && func != null;
             }
 
-            public bool CanInvoke()
-            {
-                return expireTime <= Time.time;
-            }
-
             #region static api
 
-            private static int Idx = 0;
+            public static int Idx = 0;
 
             public static Timer Pop(float v, Func<bool> f)
             {
                 var t = GenericPool<Timer>.Get();
                 t.Init(v, f);
                 t.id = ++Idx;
-                Log.I($"[Core定时器] Id={t.id} 添加");
+                // Log.I($"[Core定时器] Id={t.id} 添加");
                 return t;
             }
 
             public static void Push(Timer t)
             {
-                Log.I($"[Core定时器] Id={t.id} 删除");
+                // Log.I($"[Core定时器] Id={t.id} 删除");
                 t.Init(float.MinValue, null);
                 t.id = -1;
                 GenericPool<Timer>.Release(t);

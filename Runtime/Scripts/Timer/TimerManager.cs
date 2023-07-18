@@ -6,7 +6,7 @@ namespace ZGH.Core
 {
     public partial class TimerManager : SingletonUpdater<TimerManager>
     {
-        private List<Timer> m_Timers;
+        private List<int> m_Timers;
         private Dictionary<int, Timer> m_TimerDic;
 
         public TimerManager() : base()
@@ -18,6 +18,7 @@ namespace ZGH.Core
         public override void Dispose()
         {
             base.Dispose();
+            Timer.Idx = 0;
             m_Timers.Clear();
             m_TimerDic.Clear();
         }
@@ -27,13 +28,13 @@ namespace ZGH.Core
             base.Update();
 
             m_Timers.Clear();
-            foreach (var t in m_TimerDic.Values) {
-                m_Timers.Add(t);
+            foreach (var id in m_TimerDic.Keys) {
+                m_Timers.Add(id);
             }
-            m_Timers.ForEach(t => {
-                if (t.IsValid() && t.CanInvoke()) {
+            m_Timers.ForEach(id => {
+                if (m_TimerDic.TryGetValue(id, out var t) && t.IsValid() && t.expireTime <= Time.time) {
                     if (t.func.Invoke()) {
-                        DelTimer(ref t.id);
+                        DelTimer(id);
                     } else {
                         t.expireTime = t.interval + Time.time;
                     }
@@ -53,7 +54,7 @@ namespace ZGH.Core
             return timer.id;
         }
 
-        public void DelTimer(ref int id)
+        public void DelTimer(int id)
         {
             if (id <= 0) {
                 return;
@@ -63,7 +64,6 @@ namespace ZGH.Core
                 m_TimerDic.Remove(id);
                 Timer.Push(t);
             }
-            id = -1;
         }
 
         public void SetInterval(int id, float interval)

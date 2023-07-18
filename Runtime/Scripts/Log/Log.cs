@@ -6,7 +6,7 @@ namespace ZGH.Core
     public static class Log
     {
         [Conditional("LogOn")]
-        public static void Assertion(object obj, string s)
+        public static void Assert(object obj, string s)
         {
             if (obj == null) {
                 LogE(s);
@@ -108,20 +108,20 @@ namespace ZGH.Core
         [Conditional("LogOn")]
         private static void LogI(params string[] args)
         {
-            UnityEngine.Debug.Log(string.Concat(args));
+            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
             // to do
         }
 
         [Conditional("LogOn")]
         private static void LogW(params string[] args)
         {
-            UnityEngine.Debug.LogWarning(string.Concat(args));
+            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
             // to do
         }
 
         private static void LogE(params string[] args)
         {
-            UnityEngine.Debug.LogError(string.Concat(args));
+            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
             // to do
         }
     }

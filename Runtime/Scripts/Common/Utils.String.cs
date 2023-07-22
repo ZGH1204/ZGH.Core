@@ -19,5 +19,21 @@ namespace ZGH.Core
             var sec = Mathf.Floor(time % 60);
             return $"{min:00}:{sec:00}";
         }
+
+        public static string UpperFirstChar(this string str)
+        {
+            if (string.IsNullOrEmpty(str)) {
+                return null;
+            }
+            return char.ToUpper(str[0]) + str[1..];
+        }
+
+        public static string LowerFirstChar(this string str)
+        {
+            if (string.IsNullOrEmpty(str)) {
+                return null;
+            }
+            return char.ToLower(str[0]) + str[1..];
+        }
     }
 }

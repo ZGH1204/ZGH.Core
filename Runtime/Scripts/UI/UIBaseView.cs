@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace ZGH.Core.UI
 {
@@ -40,6 +41,17 @@ namespace ZGH.Core.UI
             var bg = transform.Find("bg");
             if (bg != null) {
                 bg.SetUIFullScreen();
+            }
+
+            if (false) {
+                var bg1 = transform.Find("bg");
+                if (bg1 != null) {
+                    bg1.GetComponent<Image>().color = Color.black;
+                }
+                var img_bg = transform.Find("img_bg");
+                if (img_bg != null) {
+                    img_bg.GetComponent<Image>().color = Color.black;
+                }
             }
         }
 

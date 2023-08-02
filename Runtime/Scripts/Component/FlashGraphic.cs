@@ -7,8 +7,8 @@ namespace ZGH.Core
     public class FlashGraphic : UIBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public float DecayTime = 0.15f;
-        public Color DefaultColor = new Color(1, 1, 1, 1);
-        public Color FlashColor = Color.white;
+        public Color DefaultColor = new(1, 1, 1, 1);
+        public Color FlashColor = new Color(1, 1, 1, 1) * 0.78125f;
         public Graphic Target;
 
         private bool _isHoldingUntilNextPress;

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace ZGH.Core.UI
 {
@@ -43,20 +42,18 @@ namespace ZGH.Core.UI
                 bg.SetUIFullScreen();
             }
 
-            if (false) {
-                var bg1 = transform.Find("bg");
-                if (bg1 != null) {
-                    bg1.GetComponent<Image>().color = Color.black;
-                }
-                var img_bg = transform.Find("img_bg");
-                if (img_bg != null) {
-                    img_bg.GetComponent<Image>().color = Color.black;
-                }
-            }
+            //if (bg != null) {
+            //    bg.SetVisible(false);
+            //}
+            //var img_bg = transform.Find("img_bg");
+            //if (img_bg != null) {
+            //    img_bg.SetVisible(false);
+            //}
         }
 
         public void Open(object arg = null)
         {
+            Log.I($"打开界面 {id}");
             OnRegister();
             OnOpen(arg);
 
@@ -68,6 +65,8 @@ namespace ZGH.Core.UI
             if (m_UIStatus == UIStatus.Close) {
                 return;
             }
+            Log.I($"关闭界面 {id}");
+
             m_UIStatus = UIStatus.Close;
             m_initFlag = false;
 

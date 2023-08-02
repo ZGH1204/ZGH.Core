@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace ZGH.Core
@@ -108,21 +109,21 @@ namespace ZGH.Core
         [Conditional("LogOn")]
         private static void LogI(params string[] args)
         {
-            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
-            // to do
+            var s = $"{DateTime.Now} {Time.frameCount} |";
+            UnityEngine.Debug.Log(s + string.Join("|", args));
         }
 
         [Conditional("LogOn")]
         private static void LogW(params string[] args)
         {
-            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
-            // to do
+            var s = $"{DateTime.Now} {Time.frameCount} |";
+            UnityEngine.Debug.Log(s + string.Join("|", args));
         }
 
         private static void LogE(params string[] args)
         {
-            UnityEngine.Debug.Log($"[{Time.frameCount}]" + string.Join("|", args));
-            // to do
+            var s = $"{DateTime.Now} {Time.frameCount} |";
+            UnityEngine.Debug.Log(s + string.Join("|", args));
         }
     }
 }
